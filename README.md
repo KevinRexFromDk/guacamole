@@ -22,7 +22,7 @@ wget https://raw.githubusercontent.com/KevinRexFromDk/guacamole/refs/heads/main/
 Once the script is downloaded, you'll need to make it executable. Use the following command to change the script's permissions:
 
 ```bash
-chmod +x guac-autoinstall.sh
+sudo chmod +x guac-autoinstall.sh
 ```
 
 # 🚀 Running the Script
