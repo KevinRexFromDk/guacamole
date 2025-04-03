@@ -54,7 +54,7 @@ sleep $sleep_duration
 
 # Download and place the systemd service file for Tomcat9
 echo -e "\e[34mDownloading systemd service file for Tomcat9...\e[0m"
-wget https://github.com/yourusername/yourrepository/raw/main/tomcat9.service -O /etc/systemd/system/tomcat9.service || handle_error "Failed to download tomcat9.service file."
+wget https://raw.githubusercontent.com/KevinRexFromDk/guacamole/refs/heads/main/tomcat9.service -O /etc/systemd/system/tomcat9.service || handle_error "Failed to download tomcat9.service file."
 sleep $sleep_duration
 
 # Start and enable Tomcat9 service
