@@ -52,38 +52,9 @@ sudo rm -rf /etc/tomcat9/apache-tomcat-9.0.102 || handle_error "Failed to remove
 sudo rm -f apache-tomcat-9.0.102.tar.gz || handle_error "Failed to remove Tomcat tar file."
 sleep $sleep_duration
 
-# Set Java alternatives
-echo -e "\e[34mSetting Java alternatives...\e[0m"
-update-java-alternatives -l || handle_error "Failed to set Java alternatives."
-sleep $sleep_duration
-
-# Create and edit systemd service for Tomcat9
-echo -e "\e[34mCreating systemd service for Tomcat9...\e[0m"
-sudo bash -c 'cat > /etc/systemd/system/tomcat9.service << EOF
-[Unit]
-Description=Apache Tomcat 9
-After=syslog.target network.target
-
-[Service]
-Type=forking
-Environment=JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
-Environment=CATALINA_PID=/etc/tomcat9/temp/tomcat.pid
-Environment=CATALINA_HOME=/etc/tomcat9/
-Environment=CATALINA_BASE=/etc/tomcat9/
-Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
-Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
-WorkingDirectory=/etc/tomcat9/
-ExecStart=/etc/tomcat9/bin/startup.sh
-ExecStop=/etc/tomcat9/bin/shutdown.sh
-User=root
-Group=root
-UMask=0007
-RestartSec=10
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF' || handle_error "Failed to create Tomcat systemd service."
+# Download and place the systemd service file for Tomcat9
+echo -e "\e[34mDownloading systemd service file for Tomcat9...\e[0m"
+wget https://github.com/yourusername/yourrepository/raw/main/tomcat9.service -O /etc/systemd/system/tomcat9.service || handle_error "Failed to download tomcat9.service file."
 sleep $sleep_duration
 
 # Start and enable Tomcat9 service
