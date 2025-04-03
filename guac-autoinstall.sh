@@ -9,26 +9,6 @@ handle_error() {
     exit 1  # Exit the script with an error status
 }
 
-# Prompt for MySQL password
-read -p "Enter MySQL password (default 'Passw0rd'): " mysqlPwd
-mysqlPwd=${mysqlPwd:-Passw0rd}  # Default to 'Passw0rd' if no input is given
-echo -e "\e[34mMySQL Password: $mysqlPwd\e[0m"
-
-# Prompt for Guacamole password
-read -p "Enter Guacamole password (default 'Passw0rd'): " guacPwd
-guacPwd=${guacPwd:-Passw0rd}  # Default to 'Passw0rd' if no input is given
-echo -e "\e[34mGuacamole Password: $guacPwd\e[0m"
-
-# Prompt for Guacamole database name
-read -p "Enter Guacamole database name (default 'guac_db'): " guacDb
-guacDb=${guacDb:-guac_db}  # Default to 'guac_db' if no input is given
-echo -e "\e[34mGuacamole Database: $guacDb\e[0m"
-
-# Prompt for Guacamole username
-read -p "Enter Guacamole username (default 'guacadmin'): " guacUser
-guacUser=${guacUser:-guacadmin}  # Default to 'guacadmin' if no input is given
-echo -e "\e[34mGuacamole User: $guacUser\e[0m"
-
 # Update and upgrade the system
 echo -e "\e[34mUpdating and upgrading the system...\e[0m"
 sudo apt-get update -y && sudo apt-get upgrade -y || handle_error "System update/upgrade failed."
@@ -79,7 +59,7 @@ sleep $sleep_duration
 
 # Run Guacamole installation script
 echo -e "\e[34mRunning Guacamole installation script...\e[0m"
-sudo ./guac-install.sh --mysqlpwd $mysqlPwd --guacpwd $guacPwd --guacdb $guacDb --guacuser $guacUser --nomfa --installmysql
+sudo ./guac-install.sh
 sleep $sleep_duration
 
 # Success message
