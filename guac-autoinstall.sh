@@ -79,8 +79,15 @@ sleep $sleep_duration
 
 # Run Guacamole installation script
 echo -e "\e[34mRunning Guacamole installation script...\e[0m"
-sudo ./guac-install.sh --mysqlpwd $mysqlPwd --guacpwd $guacPwd --guacdb $guacDb --guacuser $guacUser --nomfa --installmysql || handle_error "Guacamole installation failed."
+sudo ./guac-install.sh --mysqlpwd $mysqlPwd --guacpwd $guacPwd --guacdb $guacDb --guacuser $guacUser --nomfa --installmysql
 sleep $sleep_duration
 
 # Success message
 echo -e "\e[32mInstallation completed successfully!\e[0m"
+
+# Cleanup
+echo -e "\e[34mCleaning up...\e[0m"
+sudo rm -f apache-tomcat-9.0.102.*
+sudo rm -f guac-install.sh
+sudo rm -f guac-autoinstall.sh
+echo -e "\e[32mCleanup completed successfully!\e[0m"
