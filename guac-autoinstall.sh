@@ -31,7 +31,7 @@ echo -e "\e[34mGuacamole User: $guacUser\e[0m"
 
 # Update and upgrade the system
 echo -e "\e[34mUpdating and upgrading the system...\e[0m"
-sudo apt-get update && sudo apt-get upgrade -y || handle_error "System update/upgrade failed."
+sudo apt-get update -y && sudo apt-get upgrade -y || handle_error "System update/upgrade failed."
 sleep $sleep_duration
 
 # Install OpenJDK 11
@@ -39,9 +39,9 @@ echo -e "\e[34mInstalling OpenJDK 11...\e[0m"
 sudo apt-get install openjdk-11-jdk -y || handle_error "OpenJDK 11 installation failed."
 sleep $sleep_duration
 
-# Download and install Tomcat 9
+# Download and install Tomcat 9 (with quiet flag to suppress output)
 echo -e "\e[34mDownloading Tomcat 9...\e[0m"
-wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.102/bin/apache-tomcat-9.0.102.tar.gz || handle_error "Tomcat download failed."
+wget -q https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.102/bin/apache-tomcat-9.0.102.tar.gz || handle_error "Tomcat download failed."
 sleep $sleep_duration
 
 echo -e "\e[34mInstalling Tomcat 9...\e[0m"
@@ -54,19 +54,18 @@ sleep $sleep_duration
 
 # Download and place the systemd service file for Tomcat9
 echo -e "\e[34mDownloading systemd service file for Tomcat9...\e[0m"
-wget https://raw.githubusercontent.com/KevinRexFromDk/guacamole/refs/heads/main/tomcat9.service -O /etc/systemd/system/tomcat9.service || handle_error "Failed to download tomcat9.service file."
+wget -q https://raw.githubusercontent.com/KevinRexFromDk/guacamole/refs/heads/main/tomcat9.service -O /etc/systemd/system/tomcat9.service || handle_error "Failed to download tomcat9.service file."
 sleep $sleep_duration
 
 # Start and enable Tomcat9 service
 echo -e "\e[34mStarting and enabling Tomcat9 service...\e[0m"
 sudo systemctl start tomcat9 || handle_error "Failed to start Tomcat service."
 sudo systemctl enable tomcat9 || handle_error "Failed to enable Tomcat service."
-sudo systemctl status tomcat9 || handle_error "Failed to check Tomcat service status."
 sleep $sleep_duration
 
 # Download and prepare Guacamole installation script
 echo -e "\e[34mDownloading Guacamole installation script...\e[0m"
-wget https://git.io/fxZq5 -O guac-install.sh || handle_error "Guacamole installation script download failed."
+wget -q https://git.io/fxZq5 -O guac-install.sh || handle_error "Guacamole installation script download failed."
 chmod +x guac-install.sh || handle_error "Failed to make Guacamole script executable."
 sleep $sleep_duration
 
