@@ -1,6 +1,6 @@
 # 🥑 Guacamole Auto Install Script
 
-This repository contains an automated installation script for setting up **Guacamole** with **Tomcat**, **MySQL**, and **Guacamole Server** on an Ubuntu server.
+This repository contains an automated installation script for setting up **Guacamole** with **Tomcat**, **MySQL**, and **Guacamole Server** on an Ubuntu server 24.04.
 
 ## 🔧 Features
 
